@@ -20,6 +20,8 @@ class CreateStatusComponent extends React.Component {
         const {newStatusInput} = this.state;
         const {postStatus} = this.props;
         postStatus(newStatusInput);
+
+        this.setState({newStatusInput: ''});
     }
 
     render() {

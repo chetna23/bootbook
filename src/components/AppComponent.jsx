@@ -1,6 +1,7 @@
 import React from 'react';
 import HeaderCardComponent from './HeaderCardComponent';
 import CreateStatusComponent from './CreateStatusComponent';
+import StatusesComponent from './StatusesComponent';
 
 class AppComponent extends React.Component {
     constructor() {
@@ -12,7 +13,8 @@ class AppComponent extends React.Component {
 
     postStatus(statusText) {
         const {statuses} = this.state;
-        this.setState({statuses: statuses.concat(statusText)});
+        const newStatus = {id: statuses.length, text: statusText}
+        this.setState({statuses: statuses.concat(newStatus)});
     }
 
     render() {
@@ -25,7 +27,7 @@ class AppComponent extends React.Component {
 
                 <HeaderCardComponent name="Chetna Aggarwal" />
                 <CreateStatusComponent postStatus={this.postStatus} />
-                Statuses: {JSON.stringify(statuses)}
+                <StatusesComponent statuses={statuses} />
             </div>
         );
     }
