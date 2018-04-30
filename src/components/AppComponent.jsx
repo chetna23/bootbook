@@ -1,4 +1,6 @@
 import React from 'react';
+import HeaderCardComponent from './HeaderCardComponent';
+import CreateStatusComponent from './CreateStatusComponent';
 
 class AppComponent extends React.Component {
     render() {
@@ -6,6 +8,9 @@ class AppComponent extends React.Component {
             <div className="container">
                 <h1>Bootbook</h1>
                 <hr />
+
+                <HeaderCardComponent name="Chetna Aggarwal" />
+                <CreateStatusComponent />
             </div>
         );
     }

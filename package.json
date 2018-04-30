@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.platforms.engineering:CAGGARW/bootbook.git"
+    "url": "git@github.com:chetna23/bootbook.git"
   },
   "keywords": [
     "React",
@@ -31,6 +31,7 @@
     "babel-preset-react": "~6.24.1",
     "eslint": "~4.19.1",
     "eslint-plugin-react": "~7.7.0",
+    "prop-types": "~15.6.1",
     "raf": "~3.4.0",
     "react": "~16.3.2",
     "react-dom": "~16.3.2",
