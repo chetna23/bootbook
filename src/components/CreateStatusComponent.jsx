@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class CreateStatusComponent extends React.Component {
     constructor() {
@@ -7,11 +8,18 @@ class CreateStatusComponent extends React.Component {
         this.state = {newStatusInput: ''};
 
         this.onChangeStatusInput = this.onChangeStatusInput.bind(this);
+        this.onPostClicked = this.onPostClicked.bind(this);
     }
 
     onChangeStatusInput(event) {
         const value = event.target.value;
         this.setState({newStatusInput: value});
+    }
+
+    onPostClicked() {
+        const {newStatusInput} = this.state;
+        const {postStatus} = this.props;
+        postStatus(newStatusInput);
     }
 
     render() {
@@ -30,7 +38,10 @@ class CreateStatusComponent extends React.Component {
                     />
 
                     <span className="input-group-btn">
-                        <button type="button" className="btn btn-default">
+                        <button type="button" className="btn btn-default"
+
+                            onClick={this.onPostClicked}
+                        >
                             Post
                         </button>
 
@@ -42,5 +53,9 @@ class CreateStatusComponent extends React.Component {
 }
 
 CreateStatusComponent.displayName = "CreateStatusComponent"
+
+CreateStatusComponent.propTypes = {
+    postStatus: PropTypes.func.isRequired
+}
 
 export default CreateStatusComponent;
