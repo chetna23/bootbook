@@ -8,7 +8,7 @@ class CreateStatusComponent extends React.Component {
         this.state = {newStatusInput: ''};
 
         this.onChangeStatusInput = this.onChangeStatusInput.bind(this);
-        this.onPostClicked = this.onPostClicked.bind(this);
+        this.onPostSubmit = this.onPostSubmit.bind(this);
     }
 
     onChangeStatusInput(event) {
@@ -16,9 +16,13 @@ class CreateStatusComponent extends React.Component {
         this.setState({newStatusInput: value});
     }
 
-    onPostClicked() {
+    onPostSubmit(event) {
+        event.preventDefault();
         const {newStatusInput} = this.state;
         const {postStatus} = this.props;
+        if (!newStatusInput.trim()) {
+            return;
+        }
         postStatus(newStatusInput);
 
         this.setState({newStatusInput: ''});
@@ -29,7 +33,7 @@ class CreateStatusComponent extends React.Component {
         return (
             <div className="form-group">
                 <label>Post Status:</label>
-                <div className="input-group">
+                <form className="input-group" onSubmit={this.onPostSubmit}>
                     <input
                         type="text"
                         id="post-status-input"
@@ -40,15 +44,12 @@ class CreateStatusComponent extends React.Component {
                     />
 
                     <span className="input-group-btn">
-                        <button type="button" className="btn btn-default"
-
-                            onClick={this.onPostClicked}
-                        >
+                        <button type="submit" className="btn btn-default" disabled={!newStatusInput.trim()}>
                             Post
                         </button>
 
                     </span>
-                </div>
+                </form>
             </div>
         );
     }

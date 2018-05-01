@@ -1,5 +1,6 @@
 import React        from 'react';
 import PropTypes    from 'prop-types';
+import Immutable    from 'immutable';
 
 const StatusesComponent = ({statuses, removeStatus}) => (
     <div>
@@ -8,7 +9,7 @@ const StatusesComponent = ({statuses, removeStatus}) => (
             No Statuses to display
         </div>
         }
-        {statuses.map(status => (
+        {statuses.reverse().toArray().map(status => (
             <div
                 key={status.id} className="list-group-item"
             >
@@ -28,11 +29,8 @@ const StatusesComponent = ({statuses, removeStatus}) => (
 
 StatusesComponent.displayName = 'StatusesComponent';
 
-const statusShape = PropTypes.shape({
-    id: PropTypes.number.isRequired, text: PropTypes.string.isRequired});
-
 StatusesComponent.propTypes = {
-    statuses: PropTypes.arrayOf(statusShape).isRequired,
+    statuses: PropTypes.instanceOf(Immutable.OrderedMap).isRequired,
     removeStatus: PropTypes.func.isRequired
 };
 

@@ -1,50 +1,56 @@
-import React from 'react';
-import HeaderCardComponent from './HeaderCardComponent';
-import CreateStatusComponent from './CreateStatusComponent';
-import StatusesComponent from './StatusesComponent';
+import React                    from 'react';
+import PropTypes                from 'prop-types';
+import {Provider}               from 'react-redux';
+
+import CreateStatusComponent    from './CreateStatusComponent';
+
+import HeaderCardContainer      from '../containers/HeaderCardContainer';
+import StatusesContainer        from '../containers/StatusesContainer';
 
 let statusId = 0;
 
 class AppComponent extends React.Component {
     constructor() {
         super();
-
         this.state = {statuses: []};
         this.postStatus = this.postStatus.bind(this);
-        this.removeStatus = this.removeStatus.bind(this);
     }
 
     postStatus(statusText) {
         const {statuses} = this.state;
-        const newStatus = {id: statusId++, text: statusText}
+        const newStatus = {id: statusId++, text: statusText};
         this.setState({statuses: statuses.concat(newStatus)});
     }
 
-    removeStatus(event) {
-        const {statuses} = this.state;
-        const statusToRemoveId = Number(event.currentTarget.dataset.statusId);
-        const updatedStatuses = statuses.filter(status => {
-            if (status.text === 'DO NOT REMOVE') {
-                return true;
-            }
-            return status.id !== statusToRemoveId;
-        });
-        this.setState({statuses: updatedStatuses});
-    }
     render() {
-        const {statuses} = this.state;
+        const {store} = this.props;
 
         return (
-            <div className="container">
-                <h1>Bootbook</h1>
-                <hr />
+            <Provider store={store}>
+                <div className="container">
+                    <div>
+                        <span className="h1">
+                            <span className="label label-primary">
+                                <span className="fa fa-book" aria-hidden="true" />&nbsp;&nbsp;
+                                Bootbook
+                            </span>
+                        </span>
+                    </div>
+                    <hr />
 
-                <HeaderCardComponent name="Chetna Aggarwal" />
-                <CreateStatusComponent postStatus={this.postStatus} />
-                <StatusesComponent statuses={statuses} removeStatus={this.removeStatus} />
-            </div>
+                    <HeaderCardContainer />
+                    <CreateStatusComponent postStatus={this.postStatus} />
+                    <StatusesContainer />
+                </div>
+            </Provider>
         );
     }
 }
+
+AppComponent.displayName = 'AppComponent';
+
+AppComponent.propTypes = {
+    store: PropTypes.object.isRequired
+};
 
 export default AppComponent;
