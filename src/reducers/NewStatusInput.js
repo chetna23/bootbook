@@ -1,3 +1,10 @@
 export default (state = '', action) => {
-    return state;
+    switch (action.type) {
+        case 'ADD_STATUS':
+            return '';
+        case 'SET_STATUS_INPUT':
+            return action.value;
+        default:
+            return state;
+    }
 };
